@@ -3,96 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CRITICAL_ERROR_0x001</title>
+    <title>CRITICAL_SYSTEM_ERROR</title>
     <style>
-        body { background-color: black; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; touch-action: none; }
-        .glitch-red { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; animation: flash 0.1s infinite; opacity: 0.15; pointer-events: none; display: none; }
-        @keyframes flash { 0% { background: red; } 50% { background: transparent; } 100% { background: red; } }
-        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
-        .progress-box { width: 80%; border: 2px solid #0f0; height: 30px; margin: 20px 0; position: relative; }
-        .bar { width: 0%; height: 100%; background: #0f0; transition: width 0.05s; }
-        .warn { color: red; font-size: 24px; font-weight: bold; display: none; z-index: 1001; animation: shake 0.1s infinite; }
-        @keyframes shake { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-2px, -2px); } 100% { transform: translate(2px, -2px); } }
-        #blocker { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: transparent; }
+        body { background-color: black; color: #f00; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; touch-action: none; cursor: none; }
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99999; background: rgba(0,0,0,0.1); }
+        .glitch { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: red; opacity: 0; z-index: 10; pointer-events: none; }
+        .content { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; z-index: 5; }
+        .loading-bar { width: 90%; height: 40px; border: 3px solid #f00; position: relative; overflow: hidden; }
+        .fill { width: 0%; height: 100%; background: #f00; }
+        #msg { display: none; font-size: 26px; font-weight: bold; animation: pulse 0.1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
-<body onload="initHack()">
+<body onload="ready()">
 
-    <div id="blocker"></div> <div class="glitch-red" id="bg"></div>
+<div id="overlay" onclick="startBrutalHack()"></div>
+<div class="glitch" id="glitch"></div>
 
-    <div class="container">
-        <h2 id="log">> INITIALIZING EXPLOIT...</h2>
-        <div class="progress-box"><div class="bar" id="bar"></div></div>
-        <h3 id="pct">0%</h3>
-        <div id="msg" class="warn">
-            تم اختراقك من طرف ياسين BN <br>
-            [SYSTEM DESTROYED]
-        </div>
+<div class="content">
+    <h1 id="header">> ACCESSING KERNEL...</h1>
+    <div class="loading-bar"><div class="fill" id="fill"></div></div>
+    <h2 id="pct">0%</h2>
+    <div id="msg">
+        تم اختراقك من طرف ياسين BN <br>
+        [TOTAL SYSTEM LOCKDOWN]
     </div>
+</div>
 
-    <audio id="siren" loop>
-        <source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg">
-    </audio>
+<script>
+    const fill = document.getElementById('fill');
+    const pct = document.getElementById('pct');
+    const msg = document.getElementById('msg');
+    const glitch = document.getElementById('glitch');
 
-    <script>
-        const bar = document.getElementById('bar');
-        const pct = document.getElementById('pct');
-        const msg = document.getElementById('msg');
-        const bg = document.getElementById('bg');
-        const siren = document.getElementById('siren');
+    function ready() {
+        // رسالة تنبيه أولية لإجباره على التفاعل
+        alert("!! خطأ في بروتوكول الحماية !! اضغط OK لإصلاح النظام");
+    }
 
-        function initHack() {
-            // محاولة تشغيل الإنذار فوراً
-            siren.play().catch(() => {
-                console.log("Waiting for interaction...");
-            });
+    function startBrutalHack() {
+        // 1. طلب ملء الشاشة لإخفاء أزرار العودة
+        document.documentElement.requestFullscreen().catch(() => {});
+        
+        // 2. تفعيل الاهتزاز (أندرويد)
+        if (navigator.vibrate) { navigator.vibrate([100, 50, 100, 50, 1000]); }
 
-            let w = 0;
-            let timer = setInterval(() => {
-                if (w >= 100) {
-                    clearInterval(timer);
-                    launchFinal();
-                } else {
-                    w++;
-                    bar.style.width = w + '%';
-                    pct.innerText = w + '%';
-                }
-            }, 60);
-        }
-
-        function launchFinal() {
-            bg.style.display = 'block';
-            msg.style.display = 'block';
-            siren.play();
-
-            // --- حيلة منع الخروج (لمدة 10 ثوانٍ) ---
-            let endTime = Date.now() + 10000;
-            
-            // منع زر العودة وإغلاق الصفحة عبر نوافذ متكررة
+        // 3. منع الخروج عبر التلاعب بالتاريخ
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function() {
             window.history.pushState(null, null, window.location.href);
-            window.onpopstate = function() {
-                if (Date.now() < endTime) {
-                    window.history.pushState(null, null, window.location.href);
-                    alert("!! خطأ في النظام !! لا يمكن الخروج أثناء سحب البيانات");
-                }
-            };
+            alert("⚠️ محاولة هرب فاشلة.. تم قفل النظام بواسطة ياسين BN");
+        };
 
-            // تكرار التنبيه لإشغال المتصفح ومنعه من الاستجابة للإغلاق
-            let lock = setInterval(() => {
-                if (Date.now() < endTime) {
-                    console.log("System Locked by YASSINE BN");
-                } else {
-                    clearInterval(lock);
-                    document.getElementById('blocker').style.display = 'none';
-                    alert("تم اكتمال المهمة بنجاح بواسطة ياسين BN. يمكنك الانصراف.");
-                }
-            }, 500);
-        }
+        let w = 0;
+        let t = setInterval(() => {
+            w += Math.floor(Math.random() * 3) + 1;
+            if (w >= 100) {
+                w = 100;
+                clearInterval(t);
+                lockEverything();
+            }
+            fill.style.width = w + '%';
+            pct.innerText = w + '%';
+        }, 100);
+    }
 
-        // حيلة إضافية: إذا حاول لمس الشاشة لإغلاق الصوت، سيعلق في التنبيهات
-        document.body.addEventListener('touchstart', function() {
-            siren.play();
-        });
-    </script>
+    function lockEverything() {
+        msg.style.display = 'block';
+        document.getElementById('header').innerText = "> SYSTEM CONTROLLED BY YASSINE BN";
+        
+        // تأثير الرعشة القوي
+        setInterval(() => {
+            glitch.style.opacity = (glitch.style.opacity == "0") ? "0.3" : "0";
+            if (navigator.vibrate) { navigator.vibrate(50); }
+        }, 50);
+
+        // أهم جزء: تعطيل الشاشة تماماً لمدة 10 ثوانٍ عبر الـ Alerts المتكررة
+        let count = 0;
+        let timer = setInterval(() => {
+            if (count < 5) { // سيظهر 5 تنبيهات متتالية تعطل أي سحب أو لمس
+                alert("ياسين BN: يتم الآن تشفير ملفاتك...");
+                count++;
+            } else {
+                clearInterval(timer);
+                document.getElementById('overlay').style.display = 'none';
+                alert("تمت المهمة. لا تكرر محاولة الدخول لمواقع مشبوهة.");
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }, 2000);
+    }
+</script>
+
 </body>
 </html>
