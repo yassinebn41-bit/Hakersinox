@@ -2,25 +2,99 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>SYSTEM CRITICAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SYSTEM FAILURE - 0x00992</title>
     <style>
-        body { background-color: black; color: #0f0; font-family: monospace; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .matrix { font-size: 20px; text-align: center; animation: blink 0.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
-        .warning { color: red; font-size: 30px; font-weight: bold; border: 2px solid red; padding: 20px; }
+        body { background-color: black; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; user-select: none; -webkit-user-select: none; }
+        
+        /* تأثير التوهج الأحمر */
+        .glitch-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; animation: red-flash 0.2s infinite; opacity: 0.1; display: none; }
+        @keyframes red-flash { 0% { background: transparent; } 50% { background: red; } 100% { background: transparent; } }
+
+        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px; }
+        
+        #status-text { font-size: 14px; margin-bottom: 20px; text-shadow: 0 0 5px #0f0; }
+        
+        /* شريط التحميل */
+        .progress-container { width: 80%; border: 1px solid #0f0; height: 25px; position: relative; margin-top: 10px; }
+        .progress-bar { width: 0%; height: 100%; background-color: #0f0; transition: width 0.1s; }
+        
+        .warning-msg { display: none; color: red; font-size: 28px; font-weight: bold; border: 3px solid red; padding: 15px; animation: shake 0.1s infinite; margin-top: 20px; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -2px); } 100% { transform: translate(1px, -1px); } }
+
+        /* تجميد الشاشة الوهمي */
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 9999; display: block; touch-action: none; }
     </style>
 </head>
-<body>
-    <div class="matrix">LOADING EXPLOIT... [DONE]</div>
-    <div class="matrix">ACCESSING PRIVATE FILES... [DONE]</div>
-    <br>
-    <div class="warning">
-        تم اختراقك من طرف ياسين <br>
-        أنت الآن تحت أعيننا
+<body onclick="startHack()">
+
+    <div id="overlay"></div> <div class="glitch-bg" id="bg"></div>
+
+    <div class="container">
+        <div id="console">
+            <p>> Connecting to server... [OK]</p>
+            <p>> Bypassing Firewall... [OK]</p>
+            <p>> Injecting YASSINE_BN_EXPLOIT... [RUNNING]</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="bar"></div>
+        </div>
+        <p id="percent">0%</p>
+
+        <div id="final-msg" class="warning-msg">
+            تم اختراقك من طرف ياسين BN <br>
+            [SYSTEM LOCKED]
+        </div>
     </div>
+
+    <audio id="alarm" loop>
+        <source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        // تأثير بسيط لجعل الشاشة تهتز عند الفتح
-        setTimeout(() => { document.body.style.backgroundColor = "#1a0000"; }, 2000);
+        let bar = document.getElementById('bar');
+        let percent = document.getElementById('percent');
+        let finalMsg = document.getElementById('final-msg');
+        let bg = document.getElementById('bg');
+        let alarm = document.getElementById('alarm');
+        let overlay = document.getElementById('overlay');
+
+        function startHack() {
+            // تشغيل الصوت عند أول لمسة (إجباري في الهواتف)
+            alarm.play();
+            
+            let width = 0;
+            let interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    showFinal();
+                } else {
+                    width++;
+                    bar.style.width = width + '%';
+                    percent.innerText = width + '%';
+                    // أرقام عشوائية لإضافة جو الهكر
+                    console.log(Math.random().toString(16));
+                }
+            }, 50); // سرعة التحميل
+        }
+
+        function showFinal() {
+            bg.style.display = 'block';
+            finalMsg.style.display = 'block';
+            document.body.style.color = 'red';
+            
+            // محاكاة فقدان التحكم: منع الخروج لـ 10 ثوانٍ عن طريق رسائل وهمية
+            window.onbeforeunload = function() {
+                return "هل أنت متأكد من محاولة الهرب؟ النظام مغلق!";
+            };
+
+            // إزالة "التجميد" بعد 10 ثوانٍ للسماح له بالخروج (كي لا يغضب فعلياً)
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                alert("تم الانتهاء من سحب البيانات.. يمكنك العودة الآن.");
+            }, 10000);
+        }
     </script>
 </body>
 </html>
