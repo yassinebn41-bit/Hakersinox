@@ -2,28 +2,57 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM_FAILURE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YASSINE_BN_SYSTEM</title>
     <style>
-        body { background: black; color: red; font-family: monospace; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; overflow: hidden; }
-        .box { border: 2px solid red; padding: 20px; text-align: center; }
+        body { 
+            background: black; 
+            color: #ff0000; 
+            font-family: 'Courier New', monospace; 
+            height: 100vh; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            align-items: center; 
+            overflow: hidden; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .top-text { font-size: 24px; font-weight: bold; text-shadow: 0 0 10px red; }
+        .bottom-text { font-size: 20px; border: 1px solid red; padding: 10px; animation: blink 0.5s infinite; }
+        .center-box { text-align: center; border: 2px dashed red; padding: 30px; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
     </style>
 </head>
-<body onclick="launch30Alerts()">
+<body onclick="launchHackerMode()">
 
-    <div class="box">
-        <h1>⚠️ WARNING ⚠️</h1>
-        <p>CRITICAL ERROR DETECTED</p>
-        <p>إضغط في أي مكان لإصلاح النظام</p>
+    <div class="top-text">YASSINE HACKER مر من هنا</div>
+
+    <div class="center-box">
+        <h1 style="font-size: 50px;">⚠️</h1>
+        <p>CRITICAL SYSTEM BREACH</p>
+        <p>إضغط على الشاشة فوراً لإيقاف التدمير</p>
     </div>
 
+    <div class="bottom-text">تم اختراقك بنجاح</div>
+
     <script>
-        function launch30Alerts() {
-            // قائمة الـ 30 رسالة
-            for (let i = 1; i <= 30; i++) {
-                alert("ياسين BN: خطأ رقم " + i + " - جاري سحب البيانات...");
+        function launchHackerMode() {
+            // محاولة تفعيل الاهتزاز (يعمل فقط على أندرويد ويحتاج تفاعل)
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200, 100, 500, 100, 500]);
             }
-            alert("تم اختراقك بنجاح من طرف ياسين BN");
+
+            // منع العودة للخلف مؤقتاً
+            window.history.pushState(null, null, window.location.href);
+
+            // بدء الـ 30 نافذة لإيقاف التحكم في الهاتف
+            for (let i = 1; i <= 30; i++) {
+                alert("YASSINE BN: جاري تشفير ملف رقم (" + i + ")");
+            }
+
+            alert("تمت العملية بنجاح.. هاتفك الآن تحت سيطرة ياسين BN");
         }
     </script>
 </body>
