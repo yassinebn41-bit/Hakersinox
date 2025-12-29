@@ -2,99 +2,29 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_ERROR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_FAILURE</title>
     <style>
-        body { 
-            background-color: black; 
-            color: red; 
-            font-family: 'Courier New', monospace; 
-            margin: 0; 
-            height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-align: center;
-            overflow: hidden;
-        }
-        .warning {
-            border: 5px solid red;
-            padding: 20px;
-            animation: blink 0.2s infinite;
-        }
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.1; }
-            100% { opacity: 1; }
-        }
+        body { background: black; color: red; font-family: monospace; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; overflow: hidden; }
+        .box { border: 2px solid red; padding: 20px; text-align: center; }
     </style>
 </head>
-<body onload="startBrutalAttack()">
+<body onclick="launch30Alerts()">
 
-    <div class="warning">
-        <h1>⚠️ ERROR: SYSTEM COMPROMISED ⚠️</h1>
-        <h2>تم اختراقك من طرف ياسين BN</h2>
-        <p>لا تحاول إغلاق الصفحة.. التشفير قيد التنفيذ</p>
+    <div class="box">
+        <h1>⚠️ WARNING ⚠️</h1>
+        <p>CRITICAL ERROR DETECTED</p>
+        <p>إضغط في أي مكان لإصلاح النظام</p>
     </div>
 
     <script>
-        function startBrutalAttack() {
-            // محاولة تفعيل الاهتزاز فوراً
-            if (navigator.vibrate) { navigator.vibrate([500, 200, 500, 200, 500]); }
-
-            // مصفوفة الرسائل التي ستظهر في الـ 30 نافذة
-            const messages = [
-                "تم اختراق النظام بواسطة ياسين BN",
-                "جاري الوصول إلى ملفات الصور...",
-                "تم العثور على 1500 صورة خاصة..",
-                "جاري سحب محادثات المسنجر..",
-                "تحذير: لا تحاول العودة للخلف",
-                "تم اختراق الكاميرا الأمامية بنجاح",
-                "ياسين BN يراقبك الآن..",
-                "جاري تشفير جميع الملفات..",
-                "هل ظننت أنك بأمان؟",
-                "النظام ينهار الآن..",
-                "ياسين BN: أنا داخل هاتفك الآن",
-                "جاري إرسال بياناتك للسيرفر الخاص..",
-                "تم قفل أزرار التحكم في الهاتف",
-                "محاولة الخروج ستؤدي لمسح البيانات",
-                "لقد ارتكبت خطأ بفتح هذا الرابط",
-                "ياسين BN: الهروب مستحيل",
-                "جاري الوصول إلى سجل المكالمات..",
-                "تم اختراق الميكروفون.. نحن نسمعك",
-                "أنت الآن تحت سيطرة ياسين BN",
-                "جاري حذف ملفات النظام الأساسية..",
-                "90% من البيانات تم سحبها..",
-                "جاري الوصول إلى كلمات السر..",
-                "ياسين BN: شكراً على البيانات",
-                "لا تغلق الصفحة وإلا سيتعطل المعالج",
-                "النظام تحت السيطرة الكاملة",
-                "جاري تدمير برامج الحماية..",
-                "أنت مراقب في هذه اللحظة..",
-                "ياسين BN: المهمة أوشكت على الانتهاء",
-                "تحذير أخير: لا تحاول إغلاق المتصفح",
-                "تم الاختراق بنجاح.. تحياتي، ياسين BN"
-            ];
-
-            // إظهار الـ 30 نافذة واحدة تلو الأخرى
-            setTimeout(() => {
-                for (let i = 0; i < messages.length; i++) {
-                    alert("نظام ياسين BN: " + messages[i]);
-                }
-                
-                // رسالة ختامية بعد الـ 30 نافذة
-                alert("تم اكتمال العملية. تعيش وتأكل غيرها! (ياسين BN)");
-                
-                // محاولة إغلاق الصفحة بعد الانتهاء
-                window.close();
-            }, 500);
+        function launch30Alerts() {
+            // قائمة الـ 30 رسالة
+            for (let i = 1; i <= 30; i++) {
+                alert("ياسين BN: خطأ رقم " + i + " - جاري سحب البيانات...");
+            }
+            alert("تم اختراقك بنجاح من طرف ياسين BN");
         }
-
-        // حيلة إضافية لمنع العودة للخلف أثناء ظهور النوافذ
-        window.history.pushState(null, null, window.location.href);
-        window.onpopstate = function() {
-            window.history.pushState(null, null, window.location.href);
-        };
     </script>
 </body>
 </html>
