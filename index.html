@@ -3,98 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM FAILURE - 0x00992</title>
+    <title>CRITICAL_ERROR_0x001</title>
     <style>
-        body { background-color: black; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; user-select: none; -webkit-user-select: none; }
-        
-        /* تأثير التوهج الأحمر */
-        .glitch-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; animation: red-flash 0.2s infinite; opacity: 0.1; display: none; }
-        @keyframes red-flash { 0% { background: transparent; } 50% { background: red; } 100% { background: transparent; } }
-
-        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px; }
-        
-        #status-text { font-size: 14px; margin-bottom: 20px; text-shadow: 0 0 5px #0f0; }
-        
-        /* شريط التحميل */
-        .progress-container { width: 80%; border: 1px solid #0f0; height: 25px; position: relative; margin-top: 10px; }
-        .progress-bar { width: 0%; height: 100%; background-color: #0f0; transition: width 0.1s; }
-        
-        .warning-msg { display: none; color: red; font-size: 28px; font-weight: bold; border: 3px solid red; padding: 15px; animation: shake 0.1s infinite; margin-top: 20px; }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -2px); } 100% { transform: translate(1px, -1px); } }
-
-        /* تجميد الشاشة الوهمي */
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 9999; display: block; touch-action: none; }
+        body { background-color: black; color: #0f0; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; touch-action: none; }
+        .glitch-red { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; animation: flash 0.1s infinite; opacity: 0.15; pointer-events: none; display: none; }
+        @keyframes flash { 0% { background: red; } 50% { background: transparent; } 100% { background: red; } }
+        .container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .progress-box { width: 80%; border: 2px solid #0f0; height: 30px; margin: 20px 0; position: relative; }
+        .bar { width: 0%; height: 100%; background: #0f0; transition: width 0.05s; }
+        .warn { color: red; font-size: 24px; font-weight: bold; display: none; z-index: 1001; animation: shake 0.1s infinite; }
+        @keyframes shake { 0% { transform: translate(2px, 2px); } 50% { transform: translate(-2px, -2px); } 100% { transform: translate(2px, -2px); } }
+        #blocker { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: transparent; }
     </style>
 </head>
-<body onclick="startHack()">
+<body onload="initHack()">
 
-    <div id="overlay"></div> <div class="glitch-bg" id="bg"></div>
+    <div id="blocker"></div> <div class="glitch-red" id="bg"></div>
 
     <div class="container">
-        <div id="console">
-            <p>> Connecting to server... [OK]</p>
-            <p>> Bypassing Firewall... [OK]</p>
-            <p>> Injecting YASSINE_BN_EXPLOIT... [RUNNING]</p>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="bar"></div>
-        </div>
-        <p id="percent">0%</p>
-
-        <div id="final-msg" class="warning-msg">
+        <h2 id="log">> INITIALIZING EXPLOIT...</h2>
+        <div class="progress-box"><div class="bar" id="bar"></div></div>
+        <h3 id="pct">0%</h3>
+        <div id="msg" class="warn">
             تم اختراقك من طرف ياسين BN <br>
-            [SYSTEM LOCKED]
+            [SYSTEM DESTROYED]
         </div>
     </div>
 
-    <audio id="alarm" loop>
+    <audio id="siren" loop>
         <source src="https://www.soundjay.com/buttons/beep-01a.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        let bar = document.getElementById('bar');
-        let percent = document.getElementById('percent');
-        let finalMsg = document.getElementById('final-msg');
-        let bg = document.getElementById('bg');
-        let alarm = document.getElementById('alarm');
-        let overlay = document.getElementById('overlay');
+        const bar = document.getElementById('bar');
+        const pct = document.getElementById('pct');
+        const msg = document.getElementById('msg');
+        const bg = document.getElementById('bg');
+        const siren = document.getElementById('siren');
 
-        function startHack() {
-            // تشغيل الصوت عند أول لمسة (إجباري في الهواتف)
-            alarm.play();
-            
-            let width = 0;
-            let interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    showFinal();
+        function initHack() {
+            // محاولة تشغيل الإنذار فوراً
+            siren.play().catch(() => {
+                console.log("Waiting for interaction...");
+            });
+
+            let w = 0;
+            let timer = setInterval(() => {
+                if (w >= 100) {
+                    clearInterval(timer);
+                    launchFinal();
                 } else {
-                    width++;
-                    bar.style.width = width + '%';
-                    percent.innerText = width + '%';
-                    // أرقام عشوائية لإضافة جو الهكر
-                    console.log(Math.random().toString(16));
+                    w++;
+                    bar.style.width = w + '%';
+                    pct.innerText = w + '%';
                 }
-            }, 50); // سرعة التحميل
+            }, 60);
         }
 
-        function showFinal() {
+        function launchFinal() {
             bg.style.display = 'block';
-            finalMsg.style.display = 'block';
-            document.body.style.color = 'red';
+            msg.style.display = 'block';
+            siren.play();
+
+            // --- حيلة منع الخروج (لمدة 10 ثوانٍ) ---
+            let endTime = Date.now() + 10000;
             
-            // محاكاة فقدان التحكم: منع الخروج لـ 10 ثوانٍ عن طريق رسائل وهمية
-            window.onbeforeunload = function() {
-                return "هل أنت متأكد من محاولة الهرب؟ النظام مغلق!";
+            // منع زر العودة وإغلاق الصفحة عبر نوافذ متكررة
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function() {
+                if (Date.now() < endTime) {
+                    window.history.pushState(null, null, window.location.href);
+                    alert("!! خطأ في النظام !! لا يمكن الخروج أثناء سحب البيانات");
+                }
             };
 
-            // إزالة "التجميد" بعد 10 ثوانٍ للسماح له بالخروج (كي لا يغضب فعلياً)
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                alert("تم الانتهاء من سحب البيانات.. يمكنك العودة الآن.");
-            }, 10000);
+            // تكرار التنبيه لإشغال المتصفح ومنعه من الاستجابة للإغلاق
+            let lock = setInterval(() => {
+                if (Date.now() < endTime) {
+                    console.log("System Locked by YASSINE BN");
+                } else {
+                    clearInterval(lock);
+                    document.getElementById('blocker').style.display = 'none';
+                    alert("تم اكتمال المهمة بنجاح بواسطة ياسين BN. يمكنك الانصراف.");
+                }
+            }, 500);
         }
+
+        // حيلة إضافية: إذا حاول لمس الشاشة لإغلاق الصوت، سيعلق في التنبيهات
+        document.body.addEventListener('touchstart', function() {
+            siren.play();
+        });
     </script>
 </body>
 </html>
