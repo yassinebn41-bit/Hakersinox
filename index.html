@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>SYSTEM CRITICAL</title>
+    <style>
+        body { background-color: black; color: #0f0; font-family: monospace; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .matrix { font-size: 20px; text-align: center; animation: blink 0.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+        .warning { color: red; font-size: 30px; font-weight: bold; border: 2px solid red; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="matrix">LOADING EXPLOIT... [DONE]</div>
+    <div class="matrix">ACCESSING PRIVATE FILES... [DONE]</div>
+    <br>
+    <div class="warning">
+        تم اختراقك من طرف ياسين <br>
+        أنت الآن تحت أعيننا
+    </div>
+    <script>
+        // تأثير بسيط لجعل الشاشة تهتز عند الفتح
+        setTimeout(() => { document.body.style.backgroundColor = "#1a0000"; }, 2000);
+    </script>
+</body>
+</html>
