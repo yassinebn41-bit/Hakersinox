@@ -1,77 +1,205 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SYSTEM_CRITICAL_ERROR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yassine BN | Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: black; color: #ff0000; font-family: 'Courier New', monospace; height: 100vh; margin: 0; display: flex; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; padding: 20px; box-sizing: border-box; }
-        .top { font-size: 24px; font-weight: bold; text-shadow: 0 0 10px red; }
-        .bottom { font-size: 20px; border: 1px solid red; padding: 10px; }
-        .fake-close { background: #333; color: white; padding: 10px 30px; border: 1px solid #555; cursor: pointer; font-size: 18px; margin-top: 20px; z-index: 100; }
-        .skull { font-size: 80px; animation: pulse 0.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        :root {
+            --primary-green: #00ff41;
+            --dark-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* الهيدر والشعار */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--primary-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            text-align: center;
+            position: relative;
+        }
+
+        .crown {
+            font-size: 20px;
+            color: gold;
+            display: block;
+            margin-bottom: -10px;
+            text-shadow: 0 0 10px gold;
+        }
+
+        .logo-text {
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--primary-green);
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--primary-green);
+        }
+
+        /* زر القائمة */
+        .menu-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--primary-green);
+            transition: 0.3s;
+        }
+
+        /* القائمة الجانبية */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            right: 0;
+            background-color: var(--secondary-bg);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-left: 2px solid var(--primary-green);
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: var(--primary-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 25px;
+            font-size: 36px;
+            color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        /* المقال والمحتوى */
+        .main-content {
+            padding: 40px 10%;
+        }
+
+        .article-card {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border-right: 5px solid var(--primary-green);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            color: var(--primary-green);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .skills-tags {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid var(--primary-green);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
-    <div class="top">YASSINE HACKER مر من هنا</div>
-
-    <div style="text-align: center;">
-        <div class="skull">💀</div>
-        <h1 id="status">ياسين هكرك</h1>
-        <div class="fake-close" onclick="launchBrutalAttack()">إغلاق الصفحة [X]</div>
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeNav()">&times;</span>
+        <a href="#">🏠 الرئيسية</a>
+        <a href="#">💻 مشاريعي البرمجية</a>
+        <a href="#">🎮 إنجازات الألعاب</a>
+        <a href="#">📧 تواصل معي</a>
     </div>
 
-    <div class="bottom">تم اختراقك بنجاح</div>
+    <header>
+        <div class="logo-container">
+            <span class="crown">👑</span>
+            <span class="logo-text">YASSINE BN</span>
+        </div>
+        <div class="menu-btn" onclick="openNav()">&#9776;</div>
+    </header>
+
+    <div class="main-content">
+        <div class="article-card">
+            <h2>ياسين BN: عندما تلتقي الموهبة بالإبداع الرقمي</h2>
+            <p>
+                مرحباً بكم في الموقع الرسمي لـ <span class="highlight">ياسين BN</span>. خلف هذا الاسم تكمن شخصية استثنائية تجمع بين عالمين يتطلبان الدقة والذكاء: عالم البرمجة وعالم الألعاب.
+            </p>
+            <p>
+                ياسين ليس مجرد <span class="highlight">لاعب موهوب</span> يتمتع بسرعة البديهة والمهارة الفائقة في الميدان، بل هو أيضاً <span class="highlight">مبرمج طموح</span> يتقن لغة الأكواد كما يتقن استراتيجيات الفوز. يتميز ياسين بقدرة فريدة على حل المشكلات وتطوير الحلول التقنية المبتكرة، مما يجعله رقماً صعباً في عالم التكنولوجيا الحديثة.
+            </p>
+            <p>
+                إلى جانب ذلك، يتمتع ياسين بمواهب متعددة تجعل منه شخصية قيادية ملهمة، يسعى دائماً لترك بصمته الخاصة في كل مشروع يلمسه، سواء كان ذلك خلف لوحة المفاتيح أو داخل ساحة المنافسة.
+            </p>
+            
+            <div class="skills-tags">
+                <span class="tag">#مبرمج_محترف</span>
+                <span class="tag">#لاعب_موهوب</span>
+                <span class="tag">#Creative_Mind</span>
+                <span class="tag">#Yassine_BN_Legacy</span>
+                <span class="tag">#تطوير_الويب</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 جميع الحقوق محفوظة لـ YASSINE BN | تم التصميم بكل فخر.
+    </footer>
 
     <script>
-        function speak(text) {
-            const msg = new SpeechSynthesisUtterance();
-            msg.text = text;
-            msg.lang = 'ar-SA';
-            msg.rate = 0.8; // سرعة الصوت
-            window.speechSynthesis.speak(msg);
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
         }
 
-        function launchBrutalAttack() {
-            // 1. انطلاق الصوت فوراً عند الضغط على الزر الوهمي
-            speak("لقد تم اختراقك، والهكر ياسين مر من هنا. أنت الآن تحت سيطرتي الكاملة");
-
-            // 2. تفعيل الاهتزاز المزعج
-            if (navigator.vibrate) {
-                navigator.vibrate([500, 100, 500, 100, 500, 100, 500]);
-            }
-
-            // 3. النوافذ المتتالية (30 نافذة) لمنع الخروج
-            let i = 1;
-            const hackInterval = setInterval(() => {
-                if (i <= 30) {
-                    alert("⚠️ ياسين هكرك 💀 \n خطأ رقم " + i + ": جاري تدمير ملفات النظام");
-                    i++;
-                } else {
-                    clearInterval(hackInterval);
-                }
-            }, 100);
-
-            // 4. جعل الزر الوهمي يظهر رسالة إضافية بدل الإغلاق
-            document.querySelector('.fake-close').innerText = "SYSTEM LOCKED";
-            document.querySelector('.fake-close').onclick = function() {
-                alert("ياسين BN: لا تحاول الضغط، لن تخرج من هنا إلا بإذني!");
-            };
-            
-            // قفل الموقع لمدة 20 ثانية (تجميد وهمي)
-            setTimeout(() => {
-                alert("انتهى الوقت.. لقد سحبت كل ما أحتاجه. تحياتي: ياسين BN");
-            }, 20000);
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
         }
-
-        // منع زر العودة في الهاتف
-        window.history.pushState(null, null, window.location.href);
-        window.onpopstate = function() {
-            window.history.pushState(null, null, window.location.href);
-            alert("⚠️ ياسين هكرك 💀 - الهروب مستحيل!");
-        };
     </script>
 </body>
 </html>
